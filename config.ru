@@ -3,18 +3,39 @@ require 'bundler/setup'
 
 require 'sinatra'
 
-DOMAIN_REDIRECTS = {
-  'opennorth.ca' => 'www.opennorth.ca',
-  'nordouvert.ca' => 'www.nordouvert.ca',
-  'blog.opennorth.ca' => 'www.opennorth.ca',
-  'blogue.nordouvert.ca' => 'www.nordouvert.ca',
-  'popoloproject.com' => 'www.popoloproject.com',
+DATA = {
+  'opennorth.ca' => {
+    host: 'www.opennorth.ca',
+  },
+  'nordouvert.ca' => {
+    host: 'www.nordouvert.ca',
+  },
+  'blog.opennorth.ca' => {
+    host: 'www.opennorth.ca',
+    root_to: '/archive.html',
+    undo_clean_url: true,
+  },
+  'blogue.nordouvert.ca' => {
+    host: 'www.nordouvert.ca',
+    root_to: '/archive.html',
+    undo_clean_url: true,
+  },
+  'popoloproject.com' => {
+    host: 'www.popoloproject.com',
+  },
 }
 
 get '/*' do
-  host = DOMAIN_REDIRECTS[request.host]
-  if host
-    redirect "#{request.scheme}://#{host}#{request.fullpath}", 301
+  config = DATA[request.host]
+  if config
+    if config[:root_to] && request.fullpath == '/'
+      path = config[:root_to]
+    elsif config[:undo_clean_url] && request.fullpath != '/' && request.fullpath.end_with?('/')
+      path = request.fullpath.chomp('/') + '.html'
+    else
+      path = request.fullpath
+    end
+    redirect "#{request.scheme}://#{config.fetch(:host)}#{path}", 301
   else
     400
   end
