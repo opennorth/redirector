@@ -4,6 +4,10 @@ require 'bundler/setup'
 require 'sinatra'
 
 DOMAIN_REDIRECTS = {
+  'opennorth.ca' => 'www.opennorth.ca',
+  'nordouvert.ca' => 'www.nordouvert.ca',
+  'blog.opennorth.ca' => 'www.opennorth.ca',
+  'blogue.nordouvert.ca' => 'www.nordouvert.ca',
   'popoloproject.com' => 'www.popoloproject.com',
 }
 
