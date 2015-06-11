@@ -20,6 +20,9 @@ DATA = {
     root_to: '/archive.html',
     undo_clean_url: true,
   },
+  'open511.org' => {
+    host: 'www.open511.org',
+  },
   'popoloproject.com' => {
     host: 'www.popoloproject.com',
   },
