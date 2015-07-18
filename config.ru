@@ -23,9 +23,6 @@ DATA = {
   'open511.org' => {
     host: 'www.open511.org',
   },
-  'popoloproject.com' => {
-    host: 'www.popoloproject.com',
-  },
 }
 
 get '/*' do
