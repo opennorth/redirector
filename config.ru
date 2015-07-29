@@ -20,6 +20,14 @@ DATA = {
     root_to: '/archive.html',
     undo_clean_url: true,
   },
+  'jeveuxsavoir.org' => {
+    host: 'www.nordouvert.ca',
+    path: '/2015/06/15/je-veux-savoir-fin-d-une-belle-aventure.html',
+  },
+  'www.jeveuxsavoir.org' => {
+    host: 'www.nordouvert.ca',
+    path: '/2015/06/15/je-veux-savoir-fin-d-une-belle-aventure.html',
+  },
   'open511.org' => {
     host: 'www.open511.org',
   },
@@ -28,7 +36,9 @@ DATA = {
 get '/*' do
   config = DATA[request.host]
   if config
-    if config[:root_to] && request.fullpath == '/'
+    if config[:path]
+      path = config[:path]
+    elsif config[:root_to] && request.fullpath == '/'
       path = config[:root_to]
     elsif config[:undo_clean_url] && request.fullpath != '/' && request.fullpath.end_with?('/')
       path = request.fullpath.chomp('/') + '.html'
