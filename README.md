@@ -3,6 +3,7 @@
 A simple Sinatra redirection app.
 
 ```
+heroku apps:create
 heroku addons:add pointdns:small
 heroku domains:add DOMAIN
 ```
